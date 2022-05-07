@@ -1,0 +1,51 @@
+name:                avl-tree
+version:             0.1.0.0
+github:              "herrmanno/avl-tree"
+license:             BSD3
+author:              "Oliver Herrmann"
+maintainer:          "o.herrmann92@gmail.com"
+copyright:           "Oliver Herrmann 2021"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/herrmanno/avl-tree#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- mtl >= 2.2.2 && < 3
+
+library:
+  source-dirs: src
+
+executables:
+  avl-tree-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -cpp
+    - -DDEBUG
+    dependencies:
+    - avl-tree
+
+tests:
+  avl-tree-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - avl-tree
