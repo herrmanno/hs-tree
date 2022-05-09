@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedLists #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE ViewPatterns #-}
 module Tree 
@@ -14,6 +15,8 @@ module Tree
 
 import Prelude hiding (succ,min,map)
 import Data.List (foldl')
+import Data.Sequence (Seq((:<|)), (<|), (|>))
+import qualified Data.Sequence as Seq
 
 class Tree t where
     -- | Creates an empty tree
@@ -35,7 +38,7 @@ class Tree t where
     -- | Flipped version of `insert`
     add :: (Ord a) => a -> t a -> t a
     add = flip insert
-    -- | Flipped version of `remove`
+    -- | Flipped version of `delete`
     remove :: (Ord a) => a -> t a -> t a
     remove = flip delete
 
@@ -82,11 +85,11 @@ postOrder (Node a l r) = postOrder l ++ postOrder r ++ [a]
 
 -- | Traverse a tree in levels
 levelOrder :: (Tree t) => t a -> [a]
-levelOrder node = go [node]
+levelOrder node = go (Seq.singleton node)
     where
         go [] = []
-        go (Empty:xs) = go xs
-        go ((Node a l r): xs) = a : go (xs ++ [l,r])
+        go (Empty:<|xs) = go xs
+        go ((Node a l r):<|xs) = a : go (xs |> l |> r)
 
 -- | Calculates the height of a tree
 height :: (Tree t, Integral b) => t a -> b

@@ -1,5 +1,5 @@
 {-# LANGUAGE CPP #-}
-#define DEBUG
+-- #define DEBUG
 
 module AVLTree (
     AVLTree,

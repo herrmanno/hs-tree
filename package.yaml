@@ -21,6 +21,7 @@ description:         Please see the README on GitHub at <https://github.com/herr
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
 - mtl >= 2.2.2 && < 3
 
 library:
